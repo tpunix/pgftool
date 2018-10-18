@@ -148,7 +148,11 @@ int face_to_pgf(FT_Face face, PGF_FONT *pgft)
 
 	mt = &face->size->metrics;
 
-	strcpy(pgft->ph->font_name, face->family_name);
+  if (face->family_name != NULL)
+	  strcpy(pgft->ph->font_name, face->family_name);
+  else
+    strcpy(pgft->ph->font_name, "Dummy Font");
+
 	strcpy(pgft->ph->font_type, face->style_name);
 
 	h_size = mt->x_ppem;
