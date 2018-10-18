@@ -372,7 +372,7 @@ PGF_FONT *new_pgf_font(void)
 
 	ph->header_start = 0;
 	ph->header_len = 0x0188;
-	strcpy((char*)ph->pgf_id, "PGF0");
+	strncpy((char*)ph->pgf_id, "PGF0", 4);
 	ph->revision = 0x00000002;
 	ph->version = 0x00000006;
 
