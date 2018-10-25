@@ -148,7 +148,11 @@ int face_to_pgf(FT_Face face, PGF_FONT *pgft)
 
 	mt = &face->size->metrics;
 
-	strcpy(pgft->ph->font_name, face->family_name);
+  if (face->family_name != NULL)
+	  strcpy(pgft->ph->font_name, face->family_name);
+  else
+    strcpy(pgft->ph->font_name, "Dummy Font");
+
 	strcpy(pgft->ph->font_type, face->style_name);
 
 	h_size = mt->x_ppem;
@@ -191,8 +195,8 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
-	glist = (TTF_GLYPH**)malloc(65536*4);
-	memset(glist, 0, 65536*4);
+	glist = (TTF_GLYPH**)malloc(65536*sizeof(TTF_GLYPH*));
+	memset(glist, 0, 65536*sizeof(TTF_GLYPH*));
 	for(i=0; i<65536; i++){
 		if(ucs_list[i])
 			glist[i] = TTF_Load_Glyph(face, i);
